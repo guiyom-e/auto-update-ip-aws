@@ -1,0 +1,8 @@
+# Configuration
+*.cfg
+
+# Logs
+*.log
+
+# Data
+current_ip

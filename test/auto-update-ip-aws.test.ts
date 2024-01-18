@@ -1,17 +1,18 @@
-// import * as cdk from 'aws-cdk-lib';
-// import { Template } from 'aws-cdk-lib/assertions';
-// import * as AutoUpdateIpAws from '../lib/auto-update-ip-aws-stack';
+import * as cdk from "aws-cdk-lib";
+import { Template } from "aws-cdk-lib/assertions";
+import { AutoUpdateIpStack } from "../lib/auto-update-ip-aws-stack";
 
-// example test. To run these tests, uncomment this file along with the
-// example resource in lib/auto-update-ip-aws-stack.ts
-test('SQS Queue Created', () => {
-//   const app = new cdk.App();
-//     // WHEN
-//   const stack = new AutoUpdateIpAws.AutoUpdateIpAwsStack(app, 'MyTestStack');
-//     // THEN
-//   const template = Template.fromStack(stack);
+test("State machine created", () => {
+  const app = new cdk.App();
+  // WHEN
+  const stack = new AutoUpdateIpStack(app, "MyTestStack", {
+    hostedZoneId: "123456789",
+    domaineName: "example.com",
+  });
+  // THEN
+  const template = Template.fromStack(stack);
 
-//   template.hasResourceProperties('AWS::SQS::Queue', {
-//     VisibilityTimeout: 300
-//   });
+  template.hasResourceProperties("AWS::StepFunctions::StateMachine", {
+    StateMachineType: "EXPRESS",
+  });
 });
