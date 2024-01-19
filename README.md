@@ -4,6 +4,8 @@ No more use a dynDNS service to update DNS when your IP changes!
 
 This repo rely on an AWS CDK stack to update your A record in route 53 with an HTTP API. It also provides a script to automatically call this API whenever your IP changes.
 
+... and it is [(almost) free](#estimated-cost)!
+
 ![Architecture](docs/assets/architecture.png)
 
 ## Prerequisites
@@ -72,3 +74,20 @@ Want more options? Feel free to contribute!
 - `npx cdk deploy` deploy this stack to your default AWS account/region
 - `npx cdk diff` compare deployed stack with current state
 - `npx cdk synth` emits the synthesized CloudFormation template
+
+## Estimated cost
+
+The deployed stack uses AWS resources at really low cost:
+
+- Lambda: ~ \$0.00005 / month = 31 days x 1000 milliseconds x $0.0000000017 (architecture ARM, memory: 128 MB, region eu-west-1, Jan. 2024)
+- Step Functions: ~ \$0.033 / month = 31 days x (\$0.000001 (price per request, Jan. 2024) + 1000 milliseconds x 64 MB x \$0.00001667 )
+- CloudWatch: Free tier = 6 months x 31 days x (2 kB (Step Functions) + 500 B (Lambda)) = 0.5 MB < 5 GB of free tier
+- API Gateway V1: ~ \$0.00003 = 31 x 3.50/million requests. NB: free tier the first year
+- API Gateway V2: ~ \$0.0001 = 31 x 1.11/million requests. NB: free tier the first year
+- Route 53 : ~ \$0.00001 / month = 31 queries (if IP changes every day) x $0.40 per million queries
+- CloudFormation : free
+- IAM: free
+
+=> TOTAL: < 0.5$ per year!
+
+> NB: you need to add the domain name cost (~\$12 per year (depending on the name chosen) + $0.50 per hosted zone per month).
