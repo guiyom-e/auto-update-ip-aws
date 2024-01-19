@@ -154,10 +154,6 @@ export class AutoUpdateIpStack extends Stack {
       ),
     });
 
-    new CfnOutput(this, "UpdateIpSFNArn", {
-      value: stateMachine.stateMachineArn,
-    });
-
     // IAM User to start the state machine
     if (user !== undefined) {
       const startSFNGroup = new Group(this, "StartUpdateIpSFNGroup", {
