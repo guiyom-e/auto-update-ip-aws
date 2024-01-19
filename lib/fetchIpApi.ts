@@ -1,7 +1,8 @@
-import { CfnOutput } from "aws-cdk-lib";
+import { CfnOutput, Duration } from "aws-cdk-lib";
 import { HttpApi, HttpMethod } from "aws-cdk-lib/aws-apigatewayv2";
 import { HttpLambdaIntegration } from "aws-cdk-lib/aws-apigatewayv2-integrations";
-import { Function, Code, Runtime } from "aws-cdk-lib/aws-lambda";
+import { Function, Code, Runtime, Architecture } from "aws-cdk-lib/aws-lambda";
+import { RetentionDays } from "aws-cdk-lib/aws-logs";
 import { Construct } from "constructs";
 
 export const getFetchIpApi = (
@@ -20,6 +21,12 @@ export const getFetchIpApi = (
     ),
     handler: "index.handler",
     runtime: Runtime.NODEJS_20_X,
+    architecture: Architecture.ARM_64,
+    memorySize: 128,
+    retryAttempts: 2,
+    logRetention: RetentionDays.SIX_MONTHS,
+    // Must be less than 29 seconds (API Gateway timeout)
+    timeout: Duration.seconds(10),
     environment: {
       STATE_MACHINE_ARN: stateMachineArn,
     },
