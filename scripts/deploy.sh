@@ -29,13 +29,6 @@ chmod 600 $SCRIPT_DIR/get_current_ip_api_url.cfg
 echo $FETCH_IP_API_URL >$SCRIPT_DIR/get_current_ip_api_url.cfg
 chmod 400 $SCRIPT_DIR/get_current_ip_api_url.cfg
 
-# UPDATE IP SFN ARN
-touch $SCRIPT_DIR/update_ip_state_machine_arn.cfg
-chmod 600 $SCRIPT_DIR/update_ip_state_machine_arn.cfg
-echo $UPDATE_IP_SFN_ARN >$SCRIPT_DIR/update_ip_state_machine_arn.cfg
-chmod 400 $SCRIPT_DIR/update_ip_state_machine_arn.cfg
-UPDATE_IP_state_machine_arn
-
 # UPDATE IP API URL
 touch $SCRIPT_DIR/update_ip_api_url.cfg
 chmod 600 $SCRIPT_DIR/update_ip_api_url.cfg

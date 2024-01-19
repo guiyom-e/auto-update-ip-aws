@@ -10,13 +10,7 @@ import {
   StateMachineType,
 } from "aws-cdk-lib/aws-stepfunctions";
 import { CallAwsService } from "aws-cdk-lib/aws-stepfunctions-tasks";
-import {
-  CfnOutput,
-  Duration,
-  RemovalPolicy,
-  Stack,
-  StackProps,
-} from "aws-cdk-lib";
+import { Duration, RemovalPolicy, Stack, StackProps } from "aws-cdk-lib";
 import {
   Effect,
   Group,
@@ -152,10 +146,6 @@ export class AutoUpdateIpStack extends Stack {
             })
           )
       ),
-    });
-
-    new CfnOutput(this, "UpdateIpSFNArn", {
-      value: stateMachine.stateMachineArn,
     });
 
     // IAM User to start the state machine
