@@ -1,14 +1,7 @@
 import * as dotenv from "dotenv";
+import { getEnvVar } from "./helpers";
 
 dotenv.config();
-
-const getEnvVar = (name: string): string => {
-  const value = process.env[name];
-  if (value === undefined) {
-    throw new Error(`${name} is undefined`);
-  }
-  return value;
-};
 
 export const REGION = getEnvVar("REGION");
 export const DOMAIN_NAME = getEnvVar("DOMAIN_NAME");

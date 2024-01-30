@@ -26,7 +26,7 @@ OLD_IP=$(tail -n 1 $SCRIPT_DIR/current_ip)
 IP=$(curl -s $GET_CURRENT_IP_API_URL | jq -r .ip)
 
 echo $NOW >$SCRIPT_DIR/latest_script_execution.log
-echo "METHOD: api integartion" | tee -a $SCRIPT_DIR/latest_script_execution.log
+echo "METHOD: api integration" | tee -a $SCRIPT_DIR/latest_script_execution.log
 
 # Update ip if it has changed since last update (or if it's the first time the script is run)
 if [ "$OLD_IP" = "$IP" ]; then
