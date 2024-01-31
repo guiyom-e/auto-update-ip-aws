@@ -107,13 +107,18 @@ In case of error when calling the update ip API, the error is kept in a dedicate
 
 ## 🤑 Estimated cost
 
-The deployed stack uses AWS resources at really low cost, supposing the [script](./scripts/domain-auto-update/update-ip.sh) is run once a day and the IP changes each time:
+The deployed stack uses AWS resources at really low cost, supposing the [script](./scripts/domain-auto-update/update-ip.sh) is run every hour and the IP changes every day:
 
-- _Lambda_: ~ \$0.00005 / month = 31 days x 1000 milliseconds x $0.0000000017 (architecture ARM, memory: 128 MB, region eu-west-1, Jan. 2024)
+Check the IP (every hour)
+
+- *API Gateway V2*: ~ $0.00083 = 31 days x 24h x 1.11/million requests. NB: free tier the first year
+- _Lambda_: ~ \$0.00126 / month = 31 days x 24h x 1000 milliseconds x $0.0000000017 (architecture ARM, memory: 128 MB, region eu-west-1, Jan. 2024)
+
+Update the IP (every day)
+
 - _Step Functions_: ~ \$0.033 / month = 31 days x (\$0.000001 (price per request, Jan. 2024) + 1000 milliseconds x 64 MB x \$0.00001667 )
 - _CloudWatch_: Free tier = 6 months x 31 days x (2 kB (Step Functions) + 500 B (Lambda)) = 0.5 MB < 5 GB of free tier
 - _API Gateway V1_: ~ \$0.00003 = 31 x 3.50/million requests. NB: free tier the first year
-- _API Gateway V2_: ~ \$0.0001 = 31 x 1.11/million requests. NB: free tier the first year
 - _Route 53_ : ~ \$0.00001 / month = 31 queries x $0.40 per million queries
 - _CloudFormation_ : free
 - _IAM_: free
