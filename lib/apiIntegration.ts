@@ -1,9 +1,12 @@
 import {
+  ApiKey,
   ApiKeySourceType,
   AwsIntegration,
+  Deployment,
   EndpointType,
   JsonSchemaType,
   RestApi,
+  Stage,
 } from "aws-cdk-lib/aws-apigateway";
 import { REGION } from "./common";
 import {
@@ -25,6 +28,7 @@ export const getApiIntegration = (
     description: "Integration API to SFN",
     endpointTypes: [EndpointType.REGIONAL],
     apiKeySourceType: ApiKeySourceType.HEADER,
+    deploy: true,
   });
 
   const plan = integrationApi.addUsagePlan("UsagePlan", {
@@ -35,8 +39,9 @@ export const getApiIntegration = (
     },
   });
 
-  const key = integrationApi.addApiKey("ApiKey");
-  plan.addApiKey(key);
+  const apiKey = integrationApi.addApiKey("ApiKey");
+  plan.addApiKey(apiKey);
+  plan.addApiStage({ stage: integrationApi.deploymentStage });
 
   const apiGatewayStartUpdateIpSFNRole = new Role(
     scope,
@@ -131,6 +136,6 @@ export const getApiIntegration = (
   });
 
   new CfnOutput(scope, "IntegrationApiKey", {
-    value: key.keyId,
+    value: apiKey.keyId,
   });
 };
