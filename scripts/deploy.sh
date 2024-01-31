@@ -44,7 +44,6 @@ echo $API_KEY >$SCRIPT_DIR/api_key.cfg
 chmod 400 $SCRIPT_DIR/api_key.cfg
 
 chmod +x $SCRIPT_DIR/update-ip.sh
-chmod +x $SCRIPT_DIR/update-ip-sfn.sh
 
 rm -rf ${CDK_DEPLOY_OUTPUT_FILE}
 rm -rf .outputs
