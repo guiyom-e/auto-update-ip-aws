@@ -2,6 +2,8 @@
 
 > 🎉 No more use a costly dynDNS service to update DNS when your IP changes!
 
+[![CI](https://github.com/guiyom-e/auto-update-ip-aws/actions/workflows/ci.yml/badge.svg)](https://github.com/guiyom-e/auto-update-ip-aws/actions/workflows/ci.yml)
+
 This repo rely on an AWS CDK stack to update your A record in Amazon Route 53 with an API endpoint. It also provides a script to automatically call this API whenever your IP changes.
 
 Suppose you host your own NAS server and want to access it at `my-server.com` you have bought on [AWS](https://aws.amazon.com/getting-started/hands-on/get-a-domain/). You need to add a A record to make `my-server.com` point to your server public IP. In general, if you rely on an Internet provider to get an IP, you are not guaranteed to have a one static, even if in practice they don't often change (at router reboot for instance). If you want to keep your A record up-to-date when your dynamic IP changes, this project is made for you!
