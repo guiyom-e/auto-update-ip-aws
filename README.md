@@ -55,10 +55,10 @@ Suppose you host your own NAS server and want to access it at `my-server.com` yo
    If you are not deploying from your server, you will need to:
 
    - copy the folder `scripts/domain-auto-update` (scripts and `*.cfg` files) to the target server
-   - create a cron job to run the script regularly, for instance, once a day at 1 am:
-     `0 1 * * * /home/my-user/domain-auto-update/update-ip.sh`
+   - create a cron job to run the script regularly, for instance, once per hour:
+     `0 * * * * /home/my-user/domain-auto-update/update-ip.sh`
 
-     ⚠️ NB: this means that if your IP changes, you will need to wait one day to get back to your website. Feel free to increase the frequency depending on your needs!
+     ⚠️ NB: this means that if your IP changes, you will need to wait one hour to get back to your website. Feel free to increase the frequency depending on your needs!
 
 5. Make it more secure!
 
